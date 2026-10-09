@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { obtenerProducto, formatoPrecio, paleta } from "@/lib/productos";
 import BotonAgregar from "@/components/BotonAgregar";
+import FotoProducto from "@/components/FotoProducto";
 
 export const dynamic = "force-dynamic";
 
@@ -22,11 +23,15 @@ export default async function PaginaProducto({ params }) {
         ← Volver al catálogo
       </Link>
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
-        <div className={`relative grid min-h-[20rem] place-items-center overflow-hidden rounded-[2rem] bg-gradient-to-br ${paleta(producto.id)} lg:min-h-[28rem]`}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.4),transparent_55%)]" />
-          <span className="relative text-[9rem] font-black text-white/90 drop-shadow-2xl">
-            {producto.nombre.charAt(0)}
-          </span>
+        <div className="group relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900 shadow-2xl shadow-fuchsia-500/10">
+          <FotoProducto
+            producto={producto}
+            paleta={paleta(producto.id)}
+            sizes="(min-width: 1024px) 560px, 100vw"
+            prioridad
+            letra="text-[9rem]"
+          />
+          <div className="pointer-events-none absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10" />
         </div>
         <div className="flex flex-col justify-center gap-5">
           {producto.categoria && (

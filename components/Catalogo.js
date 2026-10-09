@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import BotonAgregar from "./BotonAgregar";
+import FotoProducto from "./FotoProducto";
 
 const precio = (v) =>
   new Intl.NumberFormat("es-ES", { style: "currency", currency: "USD" }).format(Number(v));
@@ -66,14 +67,16 @@ export default function Catalogo({ productos, paletas }) {
               <Link
                 href={`/producto/${p.id}`}
                 aria-label={p.nombre}
-                className={`relative grid h-48 place-items-center overflow-hidden bg-gradient-to-br ${paletas[p.id]}`}
+                className="relative block aspect-[4/3] overflow-hidden bg-zinc-900"
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,.35),transparent_55%)]" />
-                <span className="relative text-7xl font-black text-white/90 drop-shadow-xl transition duration-500 group-hover:scale-110">
-                  {p.nombre.charAt(0)}
-                </span>
+                <FotoProducto
+                  producto={p}
+                  paleta={paletas[p.id]}
+                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07060d]/70 via-transparent to-transparent" />
                 {p.categoria && (
-                  <span className="absolute left-4 top-4 rounded-full bg-black/30 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
+                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
                     {p.categoria}
                   </span>
                 )}

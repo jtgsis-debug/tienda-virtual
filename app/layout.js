@@ -24,7 +24,12 @@ export default function RootLayout({ children }) {
           <footer className="border-t border-white/10">
             <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-sm text-zinc-500 sm:flex-row">
               <span>© {new Date().getFullYear()} TiendaTech</span>
-              <span>Tecnología seleccionada con cuidado.</span>
+              <span>
+                Fotos:{" "}
+                <a href="https://www.pexels.com" className="underline-offset-4 hover:text-zinc-300 hover:underline">
+                  Pexels
+                </a>
+              </span>
             </div>
           </footer>
         </CarritoProvider>
