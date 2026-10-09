@@ -14,48 +14,51 @@ export default function Carrito() {
 
   if (pedidoEnviado) {
     return (
-      <div className="vacio">
-        <h1>¡Gracias por tu pedido!</h1>
-        <p>El pago en línea aún no está activo; esta es una tienda de demostración.</p>
-        <p><Link href="/" className="boton">Seguir comprando</Link></p>
+      <div className="py-32 text-center">
+        <h1 className="text-4xl font-bold">¡Gracias por tu pedido!</h1>
+        <p className="mt-3 text-zinc-400">El pago en línea aún no está activo; esta es una tienda de demostración.</p>
+        <Link href="/" className="btn-primario mt-8 px-8">Seguir comprando</Link>
       </div>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="vacio">
-        <h1>Tu carrito está vacío</h1>
-        <p><Link href="/" className="boton">Ver productos</Link></p>
+      <div className="py-32 text-center">
+        <h1 className="text-4xl font-bold">Tu carrito está vacío</h1>
+        <Link href="/#catalogo" className="btn-primario mt-8 px-8">Ver productos</Link>
       </div>
     );
   }
 
   return (
-    <>
-      <h1>Carrito</h1>
-      <div className="carrito">
-        <ul className="lista-carrito">
+    <div className="pt-12">
+      <h1 className="mb-8 text-4xl font-bold tracking-tight">Carrito</h1>
+      <div className="grid items-start gap-6 lg:grid-cols-[1fr_340px]">
+        <ul className="divide-y divide-white/10 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04]">
           {items.map((i) => (
-            <li key={i.id} className="linea">
+            <li key={i.id} className="flex flex-wrap items-center justify-between gap-4 p-5">
               <div>
-                <Link href={`/producto/${i.id}`} className="linea-nombre">{i.nombre}</Link>
-                <div className="linea-precio">{precio(i.precio)} c/u</div>
+                <Link href={`/producto/${i.id}`} className="font-semibold hover:text-fuchsia-300">{i.nombre}</Link>
+                <div className="text-sm text-zinc-400">{precio(i.precio)} c/u</div>
               </div>
-              <div className="linea-acciones">
-                <button className="boton-mini" onClick={() => cambiarCantidad(i.id, i.cantidad - 1)} aria-label="Restar">−</button>
-                <span className="linea-cantidad">{i.cantidad}</span>
-                <button className="boton-mini" onClick={() => cambiarCantidad(i.id, i.cantidad + 1)} aria-label="Sumar" disabled={i.cantidad >= i.stock}>+</button>
-                <strong className="linea-subtotal">{precio(i.precio * i.cantidad)}</strong>
-                <button className="enlace" onClick={() => quitar(i.id)}>Quitar</button>
+              <div className="flex items-center gap-3">
+                <button className="btn-mini" onClick={() => cambiarCantidad(i.id, i.cantidad - 1)} aria-label="Restar">−</button>
+                <span className="w-6 text-center">{i.cantidad}</span>
+                <button className="btn-mini" onClick={() => cambiarCantidad(i.id, i.cantidad + 1)} aria-label="Sumar" disabled={i.cantidad >= i.stock}>+</button>
+                <strong className="w-24 text-right">{precio(i.precio * i.cantidad)}</strong>
+                <button className="text-sm text-rose-400 hover:text-rose-300" onClick={() => quitar(i.id)}>Quitar</button>
               </div>
             </li>
           ))}
         </ul>
-        <aside className="resumen">
-          <div className="resumen-fila"><span>Total</span><strong>{precio(total)}</strong></div>
+        <aside className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="flex items-baseline justify-between">
+            <span className="text-zinc-400">Total</span>
+            <strong className="text-gradient text-3xl font-bold">{precio(total)}</strong>
+          </div>
           <button
-            className="boton ancho"
+            className="btn-primario w-full"
             onClick={() => {
               vaciar();
               setPedidoEnviado(true);
@@ -63,9 +66,9 @@ export default function Carrito() {
           >
             Finalizar compra
           </button>
-          <p className="nota">Pago en línea próximamente.</p>
+          <p className="text-center text-xs text-zinc-500">Pago en línea próximamente.</p>
         </aside>
       </div>
-    </>
+    </div>
   );
 }

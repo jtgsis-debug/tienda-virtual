@@ -15,7 +15,7 @@ export default function BotonAgregar({ producto, conCantidad = false }) {
   }
 
   return (
-    <div className="agregar">
+    <div className="flex gap-2">
       {conCantidad && !agotado && (
         <input
           type="number"
@@ -24,11 +24,15 @@ export default function BotonAgregar({ producto, conCantidad = false }) {
           value={cantidad}
           onChange={(e) => setCantidad(Math.max(1, Math.min(producto.stock, Number(e.target.value) || 1)))}
           aria-label="Cantidad"
-          className="campo-cantidad"
+          className="w-20 rounded-xl border border-white/15 bg-white/5 px-3 text-center outline-none focus:border-fuchsia-400"
         />
       )}
-      <button className="boton" onClick={alPulsar} disabled={agotado}>
-        {agotado ? "Agotado" : agregado ? "¡Añadido!" : "Añadir al carrito"}
+      <button
+        onClick={alPulsar}
+        disabled={agotado}
+        className="btn-primario flex-1"
+      >
+        {agotado ? "Agotado" : agregado ? "¡Añadido! ✓" : "Añadir al carrito"}
       </button>
     </div>
   );
